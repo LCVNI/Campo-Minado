@@ -4,8 +4,16 @@
 int main(){
     int menu1, linha1, coluna1,linha2,coluna2;
     int escolhal1,escolhac1,pontos1=0;
-    int minas1[5][5],minas2[5][5],campo[5][5];
+    int minas1[5][5],minas2[5][5],campo1[5][5];
     int derrota=0;
+    //ZERANDO TODAS AS MATRIZES
+        for(int i=0;i<5;i++){
+            for(int j=0; j<5;j++){
+            minas1[i][j]=0;
+            minas2[i][j]=0;
+            campo1[i][j]=0;
+            }
+        }    
     do {
         printf("Qual o modo de jogo?\n");
         printf("1.Humano x Humano\n2.Humano x Computador\n3.Computador x Computador\n4.Sair\n");
@@ -41,8 +49,8 @@ int main(){
                 }
                 //JOGADOR 2 ESCOLHENDO AS MINAS
                 for(int i = 0; i < 5; i++) {
-                    printf(" Jogador 2:Escolha onde voce quer por as sua mina %d (Linha/Coluna)\n", i + 1);
-                    scanf("%d %d", &linha2, &coluna2);
+                    printf(" Jogador 2:Escolha onde voce quer por a sua mina %d (Linha/Coluna)\n", i + 1);
+                    scanf("%d %d",&linha2,&coluna2);
                     linha2-=1;
                     coluna2-=1;
                     minas2[linha2][coluna2]++;
@@ -66,28 +74,30 @@ int main(){
                 }
 
                 //COMEÇANDO O JOGO
+                //EM DESENVOLVIMENTO
                 for(int i=0;i<5;i++){
                 printf("\nJogador 1: Escolha onde voce quer pisar (Linha/Coluna)\n");
                 scanf("%d %d",&escolhal1,&escolhac1);
                 escolhal1-=1;
                 escolhac1-=1;
-                campo[escolhal1][escolhac1]=0;
+                campo1[escolhal1][escolhac1]++;
                 for(int j=0;j<5;j++){
                     for(int k=0;k<5;k++){
-                    if(minas2[j][k]!=campo[escolhal1][escolhac1]){
-                        derrota++;
-                            }
-                        else{
-                            pontos1+=5;
-                        }
-                        }
+                        if(minas2[j][k]!=campo1[escolhal1][escolhac1]){
+                            derrota=1;
+                       }
+                       else{
+                           pontos1++;
+                           printf("Teste\n");
+                           }
                     }
-                    if(derrota>0){
+                    }
+                    if(derrota==1){
                     printf("\nVoce encontrou uma mina!\n");
                     break;
                     }
                     else{
-                    printf("Voce acertou!\n(+ 5 pontos)");
+                    printf("Voce acertou!\n(+%d 5 pontos)",pontos1);
                     }
                 }
                 break;
