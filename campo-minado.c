@@ -1,17 +1,16 @@
 #include<stdio.h>
 #include<math.h>
-
+#include<stdlib.h>
 int main(){
     int menu1, linha1, coluna1,linha2,coluna2;
     int escolhal1,escolhac1,pontos1=0;
-    int minas1[5][5],minas2[5][5],campo1[5][5];
-    int derrota=0;
+    int minas1[5][5],minas2[5][5];
+    bool derrota=false;
     //ZERANDO TODAS AS MATRIZES
         for(int i=0;i<5;i++){
             for(int j=0; j<5;j++){
             minas1[i][j]=0;
             minas2[i][j]=0;
-            campo1[i][j]=0;
             }
         }    
     do {
@@ -75,32 +74,19 @@ int main(){
 
                 //COMEÇANDO O JOGO
                 //EM DESENVOLVIMENTO
-                for(int i=0;i<5;i++){
                 printf("\nJogador 1: Escolha onde voce quer pisar (Linha/Coluna)\n");
                 scanf("%d %d",&escolhal1,&escolhac1);
                 escolhal1-=1;
                 escolhac1-=1;
-                campo1[escolhal1][escolhac1]++;
-                for(int j=0;j<5;j++){
-                    for(int k=0;k<5;k++){
-                        if(minas2[j][k]!=campo1[escolhal1][escolhac1]){
-                            derrota=1;
-                       }
-                       else{
-                           pontos1++;
-                           printf("Teste\n");
-                           }
-                    }
-                    }
-                    if(derrota==1){
-                    printf("\nVoce encontrou uma mina!\n");
-                    break;
-                    }
-                    else{
-                    printf("Voce acertou!\n(+%d 5 pontos)",pontos1);
-                    }
-                }
-                break;
+                        if(minas2[escolhal1][escolhac1]==1){
+                        printf("Voce encontrou uma mina\n");
+                        break;
+                        }
+                        else{
+                        printf("Voce acertou!\n (+5 pontos)\n");
+                        pontos1+=5;
+                        }
+                        
             case 2:
                 printf("VOCE ESCOLHEU HUMANO X COMPUTADOR\n");
                 break;
@@ -114,6 +100,6 @@ int main(){
                 printf("OPCAO INVALIDA!\n");
         }
     } while(menu1 < 4 || menu1>4);
-
+    system("Pause");
     return 0;
 }
