@@ -1,18 +1,29 @@
 #include<stdio.h>
 #include<math.h>
 #include<stdlib.h>
+#include<stdbool.h>
 int main(){
-    int menu1, linha1, coluna1,linha2,coluna2;
-    int escolhal1,escolhac1,pontos1=0;
+    //VARIÁVEIS PARA ENTRADA DE DADOS
+    int menu1, linha1, coluna1,linha2,coluna2,escolhal1,escolhac1,escolhal2,escolhac2;
+    //VARIÁVEIS DE CONTROLE
+    int pontos1=0,pontos2=0,cont=1,vet1[20],vet2[20],n1=20,n2=20;
+    //MATRIZES
     int minas1[5][5],minas2[5][5];
+    //VARIÁVEL BOOLEANA
     bool derrota=false;
-    //ZERANDO TODAS AS MATRIZES
+
+    //ZERANDO TODAS AS MATRIZES E VETORES
         for(int i=0;i<5;i++){
             for(int j=0; j<5;j++){
             minas1[i][j]=0;
             minas2[i][j]=0;
             }
-        }    
+        }
+        for(int i=0;i<20;i++){
+            vet1[i]=0;
+            vet2[i]=0;
+        }
+        
     do {
         printf("Qual o modo de jogo?\n");
         printf("1.Humano x Humano\n2.Humano x Computador\n3.Computador x Computador\n4.Sair\n");
@@ -74,18 +85,38 @@ int main(){
 
                 //COMEÇANDO O JOGO
                 //EM DESENVOLVIMENTO
-                printf("\nJogador 1: Escolha onde voce quer pisar (Linha/Coluna)\n");
-                scanf("%d %d",&escolhal1,&escolhac1);
-                escolhal1-=1;
-                escolhac1-=1;
-                        if(minas2[escolhal1][escolhac1]==1){
-                        printf("Voce encontrou uma mina\n");
-                        break;
-                        }
-                        else{
-                        printf("Voce acertou!\n (+5 pontos)\n");
-                        pontos1+=5;
-                        }
+                do{
+                    printf("\nJogador 1: Escolha onde voce quer pisar (Linha/Coluna)\n");
+                    scanf("%d %d",&escolhal1,&escolhac1);
+                    escolhal1-=1;
+                    escolhac1-=1;
+                            if(minas2[escolhal1][escolhac1]==1){
+                            printf("Voce encontrou uma mina\n");
+                            derrota=true;
+                            break;
+                            }
+                            else{
+                            printf("Voce acertou!\n (+5 pontos)\n");
+                            pontos1+=5;
+                            for(int i=0;i<){
+
+                            }
+                            }
+                    printf("\nJogador 2: Escolha onde voce quer pisar (Linha/Coluna)\n");
+                    scanf("%d %d",&escolhal2,&escolhac2);
+                    escolhal2-=1;
+                    escolhac2-=1;
+                            if(minas1[escolhal2][escolhac2]==1){
+                            printf("Voce encontrou uma mina\n");
+                            derrota=true;
+                            break;
+                            }
+                            else{
+                            printf("Voce acertou!\n (+5 pontos)\n");
+                            pontos2+=5;
+                            }
+                        cont++;
+                 }while(derrota=false||cont<20);
                         
             case 2:
                 printf("VOCE ESCOLHEU HUMANO X COMPUTADOR\n");
