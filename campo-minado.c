@@ -6,7 +6,7 @@ int main(){
     //VARIÁVEIS PARA ENTRADA DE DADOS
     int menu1, linha1, coluna1,linha2,coluna2,escolhal1,escolhac1,escolhal2,escolhac2;
     //VARIÁVEIS DE CONTROLE
-    int pontos1=0,pontos2=0,cont=1,vet1[20],vet2[20],n1=20,n2=20;
+    int pontos1=0,pontos2=0,cont=1,vetl1[20],vetc1[20],vetl2[20],vetc2[20],n1=20,n2=20;
     //MATRIZES
     int minas1[5][5],minas2[5][5];
     //VARIÁVEL BOOLEANA
@@ -20,8 +20,10 @@ int main(){
             }
         }
         for(int i=0;i<20;i++){
-            vet1[i]=0;
-            vet2[i]=0;
+            vetl1[i]=0;
+            vetc1[i]=0;
+            vetl2[i]=0;
+            vetc2[i]=0;
         }
         
     do {
@@ -85,7 +87,8 @@ int main(){
 
                 //COMEÇANDO O JOGO
                 //EM DESENVOLVIMENTO
-                do{
+                    for(int i=0;i<20;i++){
+                        do{
                     printf("\nJogador 1: Escolha onde voce quer pisar (Linha/Coluna)\n");
                     scanf("%d %d",&escolhal1,&escolhac1);
                     escolhal1-=1;
@@ -96,12 +99,18 @@ int main(){
                             break;
                             }
                             else{
-                            printf("Voce acertou!\n (+5 pontos)\n");
-                            pontos1+=5;
-                            for(int i=0;i<){
-
+                                if(vetl1[i-1]==escolhal1&&vetc1[i-1]==escolhac1){
+                                    printf("\nVoce ja escolheu isso antes!\n Tente novamente\n");
+                                }
+                                else{
+                                    printf("Voce acertou!\n (+5 pontos)\n");
+                                    pontos1+=5;
+                                    vetl1[i]=escolhal1;
+                                    vetc1[i]=escolhac1;
+                                    }
                             }
-                            }
+                        }while(vetl1[i-1]==escolhal1&&vetc1[i-1]==escolhac1);
+                    do{
                     printf("\nJogador 2: Escolha onde voce quer pisar (Linha/Coluna)\n");
                     scanf("%d %d",&escolhal2,&escolhac2);
                     escolhal2-=1;
@@ -112,11 +121,18 @@ int main(){
                             break;
                             }
                             else{
-                            printf("Voce acertou!\n (+5 pontos)\n");
-                            pontos2+=5;
+                                if(vetl2[i-1]==escolhal2&&vetc2[i-1]==escolhac2){
+                                    printf("\nVoce ja escolheu isso antes!\n Tente novamente\n");
+                                }
+                                else{
+                                    printf("Voce acertou!\n (+5 pontos)\n");
+                                    pontos2+=5;
+                                    vetl2[i]=escolhal2;
+                                    vetc2[i]=escolhac2;
+                                }
                             }
-                        cont++;
-                 }while(derrota=false||cont<20);
+                    }while(vetl2[i-1]==escolhal2&&vetc2[i-1]==escolhac2);
+                    }
                         
             case 2:
                 printf("VOCE ESCOLHEU HUMANO X COMPUTADOR\n");
