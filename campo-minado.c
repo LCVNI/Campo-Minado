@@ -7,7 +7,7 @@ int main(){
     //VARIÁVEIS PARA ENTRADA DE DADOS
     int menu1, linha1, coluna1,linha2,coluna2,escolhal1,escolhac1,escolhal2,escolhac2;
     //VARIÁVEIS DE CONTROLE
-    int pontos1=0,pontos2=0,vetl1[20],vetc1[20],vetl2[20],vetc2[20];
+    int pontos1=0,pontos2=5,vetl1[20],vetc1[20],vetl2[20],vetc2[20];
     //MATRIZES
     int minas1[5][5],minas2[5][5];
     //VARIÁVEL BOOLEANA
@@ -37,6 +37,7 @@ int main(){
                 printf("VOCE ESCOLHEU HUMANO X HUMANO\n");
                 //JOGADOR 1 ESCOLHENDO AS MINAS
                 for(int i = 0; i < 5; i++) {
+                    do{
                     printf("\nJogador 1:Escolha onde voce quer por as sua mina %d (Linha/Coluna)\n", i + 1);
                     scanf("%d %d", &linha1, &coluna1);
                     linha1-=1;
@@ -46,11 +47,17 @@ int main(){
                         for(int k=0;k<5;k++){
                         if(minas1[j][k] == minas1[linha1][coluna1]) {
                             minas1[j][k] = 1;
+                            vetl1[i]=escolhal1;
+                            vetc1[i]=escolhac1;
                         } else {
                             minas1[j][k] = 0;
                         }
                         }
                     }
+                    if(vetl1[i-1]==escolhal1&&vetc1[i-1]==escolhac1){
+                        printf("\nVoce ja escolheu isso antes!\nTente Novamente\n");
+                    }
+                    }while(vetl1[i-1]==escolhal1&&vetc1[i-1]==escolhac1);
                 }
                 //IMPRIMINDO A MATRIZ MINAS 1
                 printf("\nMatriz minas 1:\n");
@@ -152,6 +159,7 @@ int main(){
                     printf("Empate!");
                 }
                 printf("\nJogador 1: %d pontos\nJogador 2: %d pontos\n",pontos1,pontos2);
+                system("Pause");
                 return 0;
                         
             case 2:
@@ -267,6 +275,7 @@ int main(){
                     printf("Empate!");
                 }
                 printf("\nPONTUACAO FINAL:\nJogador 1: %d pontos\nComputador: %d pontos\n",pontos1,pontos2);
+                system("Pause");
                 return 0;
                 break;
             case 3:
@@ -375,10 +384,12 @@ int main(){
                     printf("Empate!");
                 }
                 printf("\nPONTUACAO FINAL:\nComputador 1: %d pontos\nComputador 2: %d pontos\n",pontos1,pontos2);
+                system("Pause");
                 return 0;
                 break;
             case 4:
                 printf("SAINDO...");
+                system("Pause");
                 break;
             default:
                 printf("OPCAO INVALIDA!\n");
