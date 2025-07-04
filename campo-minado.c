@@ -7,7 +7,7 @@ int main(){
     //VARIÁVEIS PARA ENTRADA DE DADOS
     int menu1, linha1, coluna1,linha2,coluna2,escolhal1,escolhac1,escolhal2,escolhac2;
     //VARIÁVEIS DE CONTROLE
-    int pontos1=0,pontos2=5,vetl1[20],vetc1[20],vetl2[20],vetc2[20];
+    int pontos1=0,pontos2=0,vetl1[20],vetc1[20],vetl2[20],vetc2[20];
     //MATRIZES
     int minas1[5][5],minas2[5][5];
     //VARIÁVEL BOOLEANA
@@ -37,27 +37,32 @@ int main(){
                 printf("VOCE ESCOLHEU HUMANO X HUMANO\n");
                 //JOGADOR 1 ESCOLHENDO AS MINAS
                 for(int i = 0; i < 5; i++) {
-                    do{
-                    printf("\nJogador 1:Escolha onde voce quer por as sua mina %d (Linha/Coluna)\n", i + 1);
-                    scanf("%d %d", &linha1, &coluna1);
-                    linha1-=1;
-                    coluna1-=1;
-                    minas1[linha1][coluna1]++;
-                    for(int j=0; j < 5; j++) {
-                        for(int k=0;k<5;k++){
-                        if(minas1[j][k] == minas1[linha1][coluna1]) {
-                            minas1[j][k] = 1;
-                            vetl1[i]=escolhal1;
-                            vetc1[i]=escolhac1;
+                    int repetido;
+                    do {
+                        printf("\nJogador 1: Escolha onde quer por a sua mina %d (Linha/Coluna)\n", i + 1);
+                        scanf("%d %d", &linha1, &coluna1);
+                        linha1 -= 1;
+                        coluna1 -= 1;
+                        repetido = 0;
+                        for (int j = 0; j < i; j++) {
+                            if (vetl1[j] == linha1 && vetc1[j] == coluna1) {
+                                repetido = 1;
+                                break;
+                            }
+                        }
+
+                        if (repetido) {
+                            printf("Voce ja escolheu isso antes\nTente novamente\n");
+                        } else if (linha1 < 0 || linha1 > 4 || coluna1 < 0 || coluna1 > 4) {
+                            printf("Coordenadas fora do tabuleiro! Tente novamente.\n");
                         } else {
-                            minas1[j][k] = 0;
+                            minas1[linha1][coluna1]++;
                         }
-                        }
-                    }
-                    if(vetl1[i-1]==escolhal1&&vetc1[i-1]==escolhac1){
-                        printf("\nVoce ja escolheu isso antes!\nTente Novamente\n");
-                    }
-                    }while(vetl1[i-1]==escolhal1&&vetc1[i-1]==escolhac1);
+
+                    } while (repetido || linha1 < 0 || linha1 > 4 || coluna1 < 0 || coluna1 > 4);
+
+                    vetl1[i] = linha1;
+                    vetc1[i] = coluna1;
                 }
                 //IMPRIMINDO A MATRIZ MINAS 1
                 printf("\nMatriz minas 1:\n");
@@ -69,21 +74,32 @@ int main(){
                 }
                 //JOGADOR 2 ESCOLHENDO AS MINAS
                 for(int i = 0; i < 5; i++) {
-                    printf(" Jogador 2:Escolha onde voce quer por a sua mina %d (Linha/Coluna)\n", i + 1);
-                    scanf("%d %d",&linha2,&coluna2);
-                    linha2-=1;
-                    coluna2-=1;
-                    minas2[linha2][coluna2]++;
-                    for(int j=0; j < 5; j++) {
-                        for(int k=0;k<5;k++){
-                        if(minas2[j][k] == minas2[linha2][coluna2]) {
-                            minas2[j][k] = 1;
+                    int repetido=0;
+                    do {
+                        printf("\nJogador 2: Escolha onde quer por a sua mina %d (Linha/Coluna)\n", i + 1);
+                        scanf("%d %d", &linha2, &coluna2);
+                        linha2 -= 1;
+                        coluna2 -= 1;
+                        repetido = 0;
+                        for (int j = 0; j < i; j++) {
+                            if (vetl2[j] == linha2 && vetc2[j] == coluna2) {
+                                repetido = 1;
+                                break;
+                            }
+                        }
+
+                        if (repetido) {
+                            printf("Voce ja escolheu isso antes\nTente novamente\n");
+                        } else if (linha2 < 0 || linha2 > 4 || coluna2 < 0 || coluna2 > 4) {
+                            printf("Coordenadas fora do tabuleiro! Tente novamente.\n");
                         } else {
-                            minas2[j][k] = 0;
+                            minas2[linha2][coluna2]++;
                         }
+
+                    } while (repetido || linha2 < 0 || linha2 > 4 || coluna2 < 0 || coluna2 > 4);
+                        vetl2[i] = linha2;
+                        vetc2[i] = coluna2;
                         }
-                    }
-                }
                 //IMPRIMINDO A MATRIZ MINAS 2
                 printf("\nMatriz minas 2:\n");
                 for(int i = 0; i < 5; i++) {
@@ -92,15 +108,28 @@ int main(){
                     }
                     printf("\n");
                 }
-
+                //ZERANDO TODOS OS VETORES
+                for(int i=0;i<5;i++){
+                    vetc1[i]=0;
+                    vetc2[i]=0;
+                    vetl1[i]=0;
+                    vetl2[i]=0;
+                }
                 //COMEÇANDO O JOGO
                     for(int i=0;i<20;i++){
+                    int repetido1=0,repetido2=0;;
                         do{
-                            //JOGADOR 1 ESCOLHENDO ONDE VAI PISAR
+                         //JOGADOR 1 ESCOLHENDO ONDE VAI PISAR
                     printf("\nJogador 1: Escolha onde voce quer pisar (Linha/Coluna)\n");
                     scanf("%d %d",&escolhal1,&escolhac1);
                     escolhal1-=1;
                     escolhac1-=1;
+                            for(int j=0;j<i;j++){
+                                if(vetl1[j]==escolhal1 || vetc1[j]==escolhac1){
+                                    printf("Voce ja escolheu isso antes! Tente novamente");
+                                    repetido1=1;
+                                }
+                            }
                             if(minas2[escolhal1][escolhac1]==1){
                             printf("Voce encontrou uma mina\n");
                             derrota=true;
@@ -110,6 +139,9 @@ int main(){
                                 if(vetl1[i-1]==escolhal1&&vetc1[i-1]==escolhac1){
                                     printf("\nVoce ja escolheu isso antes!\n Tente novamente\n");
                                 }
+                                else if(escolhal1 > 4 || escolhal1 < 0 || escolhac1 > 4 || escolhac1 < 0){
+                                    printf("Coordenada fora do tabuleiro! Tente novamente");
+                                }
                                 else{
                                     printf("Voce acertou!\n (+5 pontos)\n");
                                     pontos1+=5;
@@ -117,7 +149,7 @@ int main(){
                                     vetc1[i]=escolhac1;
                                     }
                             }
-                        }while(vetl1[i-1]==escolhal1&&vetc1[i-1]==escolhac1);
+                        }while(repetido1 || escolhal1 > 4 || escolhal1 < 0 || escolhac1 > 4 || escolhac1 < 0);
                         if(derrota==true){
                             break;
                         }
@@ -127,6 +159,12 @@ int main(){
                     scanf("%d %d",&escolhal2,&escolhac2);
                     escolhal2-=1;
                     escolhac2-=1;
+                            for(int k=0;k<i;k++){
+                              if(vetl2[k]==escolhal1 || vetc2[k]==escolhac1){
+                                    printf("Voce ja escolheu isso antes! Tente novamente");
+                                    repetido2=1;
+                                }
+                            }
                             if(minas1[escolhal2][escolhac2]==1){
                             printf("\nVoce encontrou uma mina\n");
                             derrota=true;
@@ -136,6 +174,9 @@ int main(){
                                 if(vetl2[i-1]==escolhal2&&vetc2[i-1]==escolhac2){
                                     printf("\nVoce ja escolheu isso antes!\n Tente novamente\n");
                                 }
+                                else if(escolhal2 > 4 || escolhal2 < 0 || escolhac2 > 4 || escolhac2 < 0){
+                                    printf("Coordenada fora do tabuleiro! Tente novamente");
+                                }
                                 else{
                                     printf("\nVoce acertou!\n(+5 pontos)\n");
                                     pontos2+=5;
@@ -143,7 +184,7 @@ int main(){
                                     vetc2[i]=escolhac2;
                                 }
                             }
-                    }while(vetl2[i-1]==escolhal2&&vetc2[i-1]==escolhac2);
+                    }while(repetido2 || escolhal2 > 4 || escolhal2 < 0 || escolhac2 > 4 || escolhac2 < 0);
                     if(derrota==true){
                             break;
                         }
@@ -158,28 +199,40 @@ int main(){
                 else{
                     printf("Empate!");
                 }
-                printf("\nJogador 1: %d pontos\nJogador 2: %d pontos\n",pontos1,pontos2);
-                system("Pause");
+                printf("PONTUACAO FINAL:\nJogador 1: %d pontos\nJogador 2: %d pontos\n",pontos1,pontos2);
                 return 0;
-                        
+               
+                //HUMANO CONTRA COMPUTADOR
             case 2:
                 printf("\nVOCE ESCOLHEU HUMANO X COMPUTADOR\n");
                  //JOGADOR 1 ESCOLHENDO AS MINAS
                 for(int i = 0; i < 5; i++) {
-                    printf("\nJogador 1:Escolha onde voce quer por as sua mina %d (Linha/Coluna)\n", i + 1);
-                    scanf("%d %d", &linha1, &coluna1);
-                    linha1-=1;
-                    coluna1-=1;
-                    minas1[linha1][coluna1]++;
-                    for(int j=0; j < 5; j++) {
-                        for(int k=0;k<5;k++){
-                        if(minas1[j][k] == minas1[linha1][coluna1]) {
-                            minas1[j][k] = 1;
+                    int repetido;
+                    do {
+                        printf("\nJogador 1: Escolha onde quer por a sua mina %d (Linha/Coluna)\n", i + 1);
+                        scanf("%d %d", &linha1, &coluna1);
+                        linha1 -= 1;
+                        coluna1 -= 1;
+                        repetido = 0;
+                        for (int j = 0; j < i; j++) {
+                            if (vetl1[j] == linha1 && vetc1[j] == coluna1) {
+                                repetido = 1;
+                                break;
+                            }
+                        }
+
+                        if (repetido) {
+                            printf("Voce ja escolheu isso antes\nTente novamente\n");
+                        } else if (linha1 < 0 || linha1 > 4 || coluna1 < 0 || coluna1 > 4) {
+                            printf("Coordenadas fora do tabuleiro! Tente novamente.\n");
                         } else {
-                            minas1[j][k] = 0;
+                            minas1[linha1][coluna1]++;
                         }
-                        }
-                    }
+
+                    } while (repetido || linha1 < 0 || linha1 > 4 || coluna1 < 0 || coluna1 > 4);
+
+                    vetl1[i] = linha1;
+                    vetc1[i] = coluna1;
                 }
                 //IMPRIMINDO A MATRIZ MINAS 1
                 printf("\nMatriz minas 1:\n");
@@ -191,23 +244,29 @@ int main(){
                 }
                  //COMPUTADOR ESCOLHENDO AS MINAS
                  srand(time(NULL));
-                 printf(" Computador está escolhendo coordenadas das minas...\n");
+                 printf("Computador está escolhendo coordenadas das minas...\n");
                 for(int i = 0; i < 5; i++) {
+                    int repetido=0;
+                    do{
                     int linha2=rand() % 5;
                     int coluna2=rand() % 5;
-                    printf("%d\n",linha2);
-                    printf("%d\n",coluna2);
                     minas2[linha2][coluna2]++;
-                    for(int j=0; j < 5; j++) {
-                        for(int k=0;k<5;k++){
-                        if(minas2[j][k] == minas2[linha2][coluna2]) {
-                            minas2[j][k] = 1;
-                        } else {
-                            minas2[j][k] = 0;
+                    vetl2[i]=linha2;
+                    vetc2[i]=coluna2;
+                    for (int j = 0; j < i; j++) {
+                            if (vetl2[j] == linha2 && vetc2[j] == coluna2) {
+                                repetido = 1;
+                                break;
+                            }
+                            else{
+                                minas2[linha2][coluna2]++;
+                            }
                         }
-                        }
-                    }
+                    }while(repetido || linha2 < 0 || linha2 > 4 || coluna2 < 0 || coluna2 > 4);
+                    vetl2[i]=linha2;
+                    vetc2[i]=coluna2;
                 }
+
                 //IMPRIMINDO A MATRIZ MINAS CPU
                 printf("\nMatriz CPU:\n");
                 for(int i = 0; i < 5; i++) {
@@ -216,6 +275,15 @@ int main(){
                     }
                     printf("\n");
                 }
+
+                //ZERANDO NOVAMENTE OS VETORES
+                for(int i=0;i<5;i++){
+                    vetl2[i]=0;
+                    vetc2[i]=0;
+                    vetl1[i]=0;
+                    vetc1[i]=0;
+                }
+
                 for(int i=0;i<20;i++){
                         do{
                             //JOGADOR 1 ESCOLHENDO ONDE VAI PISAR
@@ -275,32 +343,37 @@ int main(){
                     printf("Empate!");
                 }
                 printf("\nPONTUACAO FINAL:\nJogador 1: %d pontos\nComputador: %d pontos\n",pontos1,pontos2);
-                system("Pause");
                 return 0;
                 break;
             case 3:
                 printf("VOCE ESCOLHEU COMPUTADOR X COMPUTADOR\n");
+
                 //COMPUTADOR 1 ESCOLHENDO AS MINAS
                  srand(time(NULL));
                  printf(" Computador 1 está escolhendo coordenadas das minas...\n");
                 for(int i = 0; i < 5; i++) {
+                    int repetido=0;
+                    do{
                     int linha1=rand() % 5;
                     int coluna1=rand() % 5;
-                    printf("%d\n",linha1);
-                    printf("%d\n",coluna1);
                     minas1[linha1][coluna1]++;
-                    for(int j=0; j < 5; j++) {
-                        for(int k=0;k<5;k++){
-                        if(minas1[j][k] == minas1[linha1][coluna1]) {
-                            minas1[j][k] = 1;
-                        } else {
-                            minas1[j][k] = 0;
+                    vetl1[i]=linha1;
+                    vetc1[i]=coluna1;
+                    for (int j = 0; j < i; j++) {
+                            if (vetl1[j] == linha1 && vetc1[j] == coluna1) {
+                                repetido = 1;
+                                break;
+                            }
+                            else{
+                                minas1[linha1][coluna1]++;
+                            }
                         }
-                        }
-                    }
+                    }while(repetido || linha1 < 0 || linha1 > 4 || coluna1 < 0 || coluna1 > 4);
+                    vetl1[i]=linha1;
+                    vetc1[i]=coluna1;
                 }
                 //IMPRIMINDO A MATRIZ MINAS CPU 1
-                printf("\nMatriz CPU 2:\n");
+                printf("\nMatriz CPU 1:\n");
                 for(int i = 0; i < 5; i++) {
                     for(int j = 0; j < 5; j++) {
                         printf("%d ", minas1[i][j]);
@@ -310,18 +383,23 @@ int main(){
                 //COMPUTADOR 2 ESCOLHENDO AS MINAS
                  printf(" Computador está escolhendo coordenadas das minas...\n");
                 for(int i = 0; i < 5; i++) {
+                    int repetido=0;
+                    do{
                     int linha2=rand() % 5;
                     int coluna2=rand() % 5;
                     minas2[linha2][coluna2]++;
-                    for(int j=0; j < 5; j++) {
-                        for(int k=0;k<5;k++){
-                        if(minas2[j][k] == minas2[linha2][coluna2]) {
-                            minas2[j][k] = 1;
-                        } else {
-                            minas2[j][k] = 0;
+                    for (int j = 0; j < i; j++) {
+                            if (vetl2[j] == linha2 && vetc2[j] == coluna2) {
+                                repetido = 1;
+                                break;
+                            }
+                            else{
+                                minas2[linha2][coluna2]++;
+                            }
                         }
-                        }
-                    }
+                    }while(repetido || linha2 < 0 || linha2 > 4 || coluna2 < 0 || coluna2 > 4);
+                    vetl2[i]=linha2;
+                    vetc2[i]=coluna2;
                 }
                 //IMPRIMINDO A MATRIZ MINAS CPU 2
                 printf("\nMatriz CPU 2:\n");
@@ -330,6 +408,13 @@ int main(){
                         printf("%d ", minas2[i][j]);
                     }
                     printf("\n");
+                }
+                //ZERANDO VETORES NOVAMENTE
+                for(int i=0;i<5;i++){
+                    vetl1[i]=0;
+                    vetc1[i]=0;
+                    vetl2[i]=0;
+                    vetc2[i]=0;
                 }
                 for(int i=0;i<20;i++){
                         do{
@@ -384,12 +469,10 @@ int main(){
                     printf("Empate!");
                 }
                 printf("\nPONTUACAO FINAL:\nComputador 1: %d pontos\nComputador 2: %d pontos\n",pontos1,pontos2);
-                system("Pause");
                 return 0;
                 break;
             case 4:
                 printf("SAINDO...");
-                system("Pause");
                 break;
             default:
                 printf("OPCAO INVALIDA!\n");
