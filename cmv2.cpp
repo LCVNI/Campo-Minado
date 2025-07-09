@@ -6,11 +6,11 @@
 #include <locale.h>
 
 int main() {
-	SetConsoleOutputCP(CP_UTF8); // Define saída para UTF-8
+    SetConsoleOutputCP(CP_UTF8); // Define saÃ­da para UTF-8
     SetConsoleCP(CP_UTF8);       // Define entrada para UTF-8
     setlocale(LC_ALL, "Portuguese_Brazil.1252");
     
-    system("cls"); 
+    system("cls"); 					
     printf(" $$$$$$\\   $$$$$$\\  $$\\      $$\\ $$$$$$$\\   $$$$$$\\          \n");
     printf("$$  __$$\\ $$  __$$\\ $$$\\    $$$ |$$  __$$\\ $$  __$$\\         \n");
     printf("$$ /  \\__|$$ /  $$ |$$$$\\  $$$$ |$$ |  $$ |$$ /  $$ |        \n");
@@ -113,7 +113,7 @@ int main() {
                         }
                         for (j = 0; j < i; j++) {
                             if (vetl2[j] == linha2 && vetc2[j] == coluna2) {
-                                printf("Coordenada j� usada. Tente novamente.\n");
+                                printf("Coordenada já usada. Tente novamente.\n");
                                 repetido = 1;
                                 break;
                             }
@@ -124,8 +124,8 @@ int main() {
                     vetc2[i] = coluna2;
                 }
             } else {
-                // Colocação automática
-                printf("Computador está escolhendo as minas...\n");
+                // ColocaÃ§Ã£o automÃ¡tica
+                printf("Computador escolhendo as minas...\n");
                 for (i = 0; i < 5; i++) {
                     do {
                         linha2 = rand() % 5;
@@ -166,14 +166,14 @@ int main() {
                     escolhal1--; escolhac1--;
                     repetido1 = 0;
                     if (escolhal1 < 0 || escolhal1 > 4 || escolhac1 < 0 || escolhac1 > 4) {
-                        printf("Coordenada inválida!\n");
+                        printf("Coordenada incorreta!\n");
                         system("pause");
                         repetido1=1; //Valida tudo com o repetido1
                         continue;
                     }
                     for (i = 0; i < jogadas; i++) {
                         if (vetl1[i] == escolhal1 && vetc1[i] == escolhac1) {
-                            printf("Você já jogou aí!\n");
+                            printf("Você já jogou ai­!\n");
                             repetido1 = 1;
                             system("pause");
                             break;
@@ -222,7 +222,7 @@ int main() {
                         escolhal2--; escolhac2--;
                         repetido2 = 0;
                         if (escolhal2 < 0 || escolhal2 > 4 || escolhac2 < 0 || escolhac2 > 4) {
-                            printf("Coordenada inválida!\n");
+                            printf("Coordenada incorreta!\n");
                             system("pause");
                             repetido2 = 1;
                             continue;
@@ -288,7 +288,7 @@ int main() {
 
         } else if (menu == 3) {
             printf("Modo Computador x Computador.\n");
-    // Colocar minas aleatórias para os dois
+    // Colocar minas aleatÃ³rias para os dois
     for (i = 0; i < 5; i++) {
         do {
             linha1 = rand() % 5;
@@ -401,7 +401,7 @@ int main() {
     else if (pontos2 > pontos1)
         printf("Computador 2 venceu!\n");
     else
-        printf("Empate!\n");
+        printf("Empate!\n");	
 
     system("pause");
 
@@ -409,7 +409,7 @@ int main() {
             printf("Saindo...\n");
             break;
         } else {
-            printf("Opção inválida.\n");
+            printf("Escolha incorreta.\n");
             system("pause");
         }
 
