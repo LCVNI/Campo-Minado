@@ -4,7 +4,6 @@
 #include <time.h>
 #include <windows.h>
 #include <locale.h>
-#include <windows.h>
 
 int main() {
     SetConsoleOutputCP(CP_UTF8); // Define saÃ­da para UTF-8
