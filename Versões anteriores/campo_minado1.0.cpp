@@ -4,7 +4,34 @@
 #include<time.h> //Bibliteca para usar aleatoriedade melhor
 
 int main() {
+	
+	system("cls"); 
+    printf(" $$$$$$\\   $$$$$$\\  $$\\      $$\\ $$$$$$$\\   $$$$$$\\          \n");
+    printf("$$  __$$\\ $$  __$$\\ $$$\\    $$$ |$$  __$$\\ $$  __$$\\         \n");
+    printf("$$ /  \\__|$$ /  $$ |$$$$\\  $$$$ |$$ |  $$ |$$ /  $$ |        \n");
+    printf("$$ |      $$$$$$$$ |$$\\$$\\$$ $$ |$$$$$$$  |$$ |  $$ |        \n");
+    printf("$$ |      $$  __$$ |$$ \\$$$  $$ |$$  ____/ $$ |  $$ |        \n");
+    printf("$$ |  $$\\ $$ |  $$ |$$ |\\$  /$$ |$$ |      $$ |  $$ |        \n");
+    printf("\\$$$$$$  |$$ |  $$ |$$ | \\_/ $$ |$$ |       $$$$$$  |        \n");
+    printf(" \\______/ \\__|  \\__|\\__|     \\__|\\__|       \\______/         \n");
+    printf("                                                             \n");
+    printf("                                                             \n");
+    printf("                                                             \n");
+    printf("$$\\      $$\\ $$$$$$\\ $$\\   $$\\  $$$$$$\\  $$$$$$$\\   $$$$$$\\  \n");
+    printf("$$$\\    $$$ |\\_$$  _|$$$\\  $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ \n");
+    printf("$$$$\\  $$$$ |  $$ |  $$$$\\ $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |\n");
+    printf("$$\\$$\\$$ $$ |  $$ |  $$ $$\\$$ |$$$$$$$$ |$$ |  $$ |$$ |  $$ |\n");
+    printf("$$ \\$$$  $$ |  $$ |  $$ \\$$$$ |$$  __$$ |$$ |  $$ |$$ |  $$ |\n");
+    printf("$$ |\\$  /$$ |  $$ |  $$ |\\$$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |\n");
+    printf("$$ | \\_/ $$ |$$$$$$\\ $$ | \\$$ |$$ |  $$ |$$$$$$$  | $$$$$$  |\n");
+    printf("\\__|     \\__|\\______|\\__|  \\__|\\__|  \\__|\\_______/  \\______/ \n");
+    printf("                                                             \n");
+    printf("                                                             \n");
 
+    system("pause");
+    system("cls"); 
+    
+	srand(time(NULL));
     //Variáveis de entrada de dados
     int menu, linha1, coluna1, linha2, coluna2, escolhal1, escolhac1, escolhal2, escolhac2;
 
@@ -15,27 +42,30 @@ int main() {
     int minas1[5][5] = {0}, minas2[5][5] = {0}; //Matrizes que vao gurdadar coordenadas das minas
     char campo1[5][5], campo2[5][5]; //Matrizes que vao mostrar o campo para os jogadores
 
-    //Inicializando os campos com '?'
+    //Inicializando os campos com '#'
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
-            campo1[i][j] = '?';
-            campo2[i][j] = '?';
+            campo1[i][j] = '#';
+            campo2[i][j] = '#';
         }
     }
 
     //Iniciando menu iterativo
     do{
-    printf("Qual modo voce deseja escolher?\n");
+    printf("Qual modo voce deseja escolher?");
+    printf("\n");
+    printf("\n");
     printf("1.Humano x Humano\n");
     printf("2.Humano x Computador (Aleatorio)\n");
     printf("3.Computador x Computador (Automatico)\n");
     printf("4.Sair\n");
+    printf("\n");
     scanf("%d", &menu);
-
+	system("cls");
     switch (menu) {
         case 1:
             //Modo humano x humano
-            printf("Voce escolheu o modo humano x humano\n");
+            printf("Modo escolhido humano x humano\n");
 
             //Jogador 1 escolhendo onde vai colocar as minas
             for (int i = 0; i < 5; i++) {
@@ -136,7 +166,7 @@ int main() {
                     escolhal1 -= 1;
                     escolhac1 -= 1;
                     for (int j = 0; j < i; j++) {
-                        if (vetl1[j] == escolhal1 || vetc1[j] == escolhac1) {
+                        if (vetl1[j] == escolhal1 && vetc1[j] == escolhac1) {
                             printf("Voce ja escolheu isso antes! Tente novamente");
                             repetido1 = 1;
                         }
@@ -176,7 +206,7 @@ int main() {
                     escolhac2 -= 1;
 
                     for (int k = 0; k < i; k++) {
-                        if (vetl2[k] == escolhal1 || vetc2[k] == escolhac1) {
+                        if (vetl2[k] == escolhal1 && vetc2[k] == escolhac1) {
                             printf("Voce ja escolheu isso antes! Tente novamente");
                             repetido2 = 1;
                         }
@@ -214,7 +244,7 @@ int main() {
             break;
                 case 2:
             // MODO: Jogador x Computador
-            printf("Voce escolheu modo humano x computador");
+            printf("Modo escolhido humano x computador");
 
             //Jogador 1 escolhendo onde vai colocar as minas
             for (int i = 0; i < 5; i++) {
@@ -373,7 +403,7 @@ int main() {
             break;
         case 3:
             //MODO: Computador x Computador (Automático)
-            printf("Voce escolheu modo automatico");
+            printf("Modo escolhido automatico");
 
             printf("Computador está escolhendo coordenadas das minas...\n");
             for (int i = 0; i < 5; i++) {
@@ -518,5 +548,5 @@ int main() {
         default:
             printf("Opcao Invalida!");
         }
-    }while(menu < 4 || menu > 4);
+    }while(menu != 4);
 }
